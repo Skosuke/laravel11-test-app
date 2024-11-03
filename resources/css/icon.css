@@ -10,6 +10,11 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
   margin-bottom: 3%;
+  transition: transform 0.3s ease;
+}
+
+.icon-container:hover {
+  animation: flame-flicker 0.5s infinite alternate ease-in-out;
 }
 
 .icon-flare-text {
@@ -31,6 +36,15 @@
   border-radius: 50%;
   opacity: 0.8;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
 }
 
 /* HTML Example to apply this CSS */

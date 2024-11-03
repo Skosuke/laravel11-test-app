@@ -3,6 +3,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { FC, FormEventHandler } from 'react';
 import '../../../css/icon.css';
 import '../../../css/register.css';
+import FlareIcon from '@/Components/FlareIcon';
 
 const Register: FC<PageProps> = () => {
   const { data, setData, post, processing, errors, reset } = useForm<{
@@ -28,10 +29,7 @@ const Register: FC<PageProps> = () => {
     <>
       <Head title="Register" />
       <div className="centered-container">
-        <div className="icon-container">
-          <div className="icon-flare-text">F</div>
-          <div className="icon-spark"></div>
-        </div>
+        <FlareIcon />
         <div className="card-wrapper">
           <div className="card-body">
             <h2 className="card-title">Create Your Account</h2>

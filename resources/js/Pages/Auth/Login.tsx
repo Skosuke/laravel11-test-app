@@ -5,17 +5,18 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useEffect } from 'react';
 import '../../../css/icon.css';
-import '../../../css/register.css';
+import '../../../css/login.css';
+import FlareIcon from '@/Components/FlareIcon';
 
-export default function Login({
+const Login = ({
     status,
     canResetPassword,
 }: {
     status?: string;
     canResetPassword: boolean;
-}) {
+}) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -34,10 +35,7 @@ export default function Login({
         <>
             <Head title="Log in" />
             <div className="centered-container">
-                <div className="icon-container">
-                    <div className="icon-flare-text">F</div>
-                    <div className="icon-spark"></div>
-                </div>
+                <FlareIcon />
                 <div className="card-wrapper">
                     <div className="card-body">
                         <h2 className="card-title">Log in to Flare</h2>
@@ -102,3 +100,4 @@ export default function Login({
         </>
     );
 }
+export default Login;

@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import { FC } from 'react';
 import '../../css/icon.css';
 import '../../css/welcome.css';
+import FlareIcon from '@/Components/FlareIcon';
 
 const Welcome: FC<PageProps<{ laravelVersion: string; phpVersion: string }>> = ({
   auth,
@@ -13,10 +14,7 @@ const Welcome: FC<PageProps<{ laravelVersion: string; phpVersion: string }>> = (
     <>
       <Head title="Flare" />
       <div className="centered-container">
-        <div className="icon-container">
-          <div className="icon-flare-text">F</div>
-          <div className="icon-spark"></div>
-        </div>
+        <FlareIcon />
         <div className="card-wrapper">
           <div className="card-body">
             <h1 className="card-title">Flare</h1>
