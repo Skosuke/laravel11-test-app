@@ -1,0 +1,48 @@
+/* CSS for the Flare service icon */
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #de4242; /* Main color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-bottom: 3%;
+  transition: transform 0.3s ease;
+}
+
+.icon-container:hover {
+  animation: flame-flicker 0.5s infinite alternate ease-in-out;
+}
+
+.icon-flare-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.icon-spark {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}

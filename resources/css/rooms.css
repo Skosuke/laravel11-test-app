@@ -1,0 +1,83 @@
+.logout-link {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: #5a5a5a;
+  cursor: pointer;
+}
+
+.logout-link:hover {
+  color: #de4242;
+}
+
+.rooms-container {
+  margin: 0 auto;
+  padding: 80px 20px 0px; /* ヘッダーの高さ分余白を追加 */
+}
+
+.rooms-list {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.room-item {
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-color: #5a5a5a;
+  border-width: 1px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-item:hover {
+  background-color: #f7f7f7;
+}
+
+.room-item > div {
+  display: flex;
+  gap: 10px; /* ボタン間のスペース */
+  justify-content: flex-end; /* ボタンを右寄せ */
+}
+
+.room-name {
+  font-size: 1rem;
+  color: #444;
+}
+
+.join-button,
+.delete-button {
+  display: inline-block;
+  width: 120px; /* 横幅を固定 */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #323232;
+  border-radius: 4px;
+  border: 1px solid #5a5a5a;
+  transition: background-color 0.3s;
+}
+
+.join-button:hover {
+  background-color: #de4242;
+  color: #ffffff;
+}
+
+.delete-button:hover {
+  background-color: #d7d7d7;
+  color: #414141;
+}
+
+.no-rooms-message {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #323232;
+}

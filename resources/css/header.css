@@ -1,0 +1,37 @@
+.header {
+  position: fixed; /* ヘッダーを固定 */
+  top: 0; /* 上部に配置 */
+  left: 0;
+  right: 0;
+  z-index: 1000; /* 他の要素より前面に表示 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 30px;
+  background-color: #ffffff; /* 背景色を設定（透明な場合もある） */
+  border-bottom: 1px solid #e0e0e0; /* 下線で区切りを追加 */
+  color: #5a5a5a;
+}
+
+.header-title {
+  color: #de4242;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header-link {
+  text-decoration: none;
+  color: #5a5a5a;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.header-link:hover {
+  color: #de4242;
+}

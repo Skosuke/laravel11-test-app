@@ -4,6 +4,8 @@ import { FC } from 'react';
 import '../../css/icon.css';
 import '../../css/welcome.css';
 import FlareIcon from '@/Components/FlareIcon';
+import Card from '@/Components/Card';
+import CenteringContainer from '@/Components/CenteringContainer';
 
 const Welcome: FC<PageProps<{ laravelVersion: string; phpVersion: string }>> = ({
   auth,
@@ -13,27 +15,24 @@ const Welcome: FC<PageProps<{ laravelVersion: string; phpVersion: string }>> = (
   return (
     <>
       <Head title="Flare" />
-      <div className="centered-container">
+        <CenteringContainer>
         <FlareIcon />
-        <div className="card-wrapper">
-          <div className="card-body">
-            <h1 className="card-title">Flare</h1>
-            <p className="card-subtitle">Explore flare communities and connect with others.</p>
-            <div className="button-group">
-              <Link href="/login">
-                <button className="primary-button">
-                  Login
-                </button>
-              </Link>
-              <Link href="/register">
-                <button className="secondary-button">
-                  Register
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+        <Card title='Flare'>
+          <p className="card-subtitle">Explore flare communities and connect with others.</p>
+              <div className="button-group">
+                <Link href="/login">
+                  <button className="primary-button">
+                    Login
+                  </button>
+                </Link>
+                <Link href="/register">
+                  <button className="secondary-button">
+                    Register
+                  </button>
+                </Link>
+              </div>
+        </Card>
+        </CenteringContainer>
     </>
   );
 };

@@ -5,10 +5,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Inertia } from "@inertiajs/inertia";
 import { FormEventHandler, useEffect } from 'react';
 import '../../../css/icon.css';
 import '../../../css/login.css';
 import FlareIcon from '@/Components/FlareIcon';
+import Card from '@/Components/Card';
+import CenteringContainer from '@/Components/CenteringContainer';
 
 const Login = ({
     status,
@@ -26,7 +29,7 @@ const Login = ({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('login'), {
+        Inertia.post(route('login'), data, {
             onFinish: () => reset('password'),
         });
     };
@@ -34,12 +37,10 @@ const Login = ({
     return (
         <>
             <Head title="Log in" />
-            <div className="centered-container">
+            <CenteringContainer>
                 <FlareIcon />
-                <div className="card-wrapper">
-                    <div className="card-body">
-                        <h2 className="card-title">Log in to Flare</h2>
-                        {status && (
+                <Card title='Log in to Flare'>
+                {status && (
                             <div className="status-message">{status}</div>
                         )}
                         <form onSubmit={submit} className="login-form">
@@ -94,9 +95,8 @@ const Login = ({
                                 </PrimaryButton>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
+                </Card>
+            </CenteringContainer>
         </>
     );
 }
