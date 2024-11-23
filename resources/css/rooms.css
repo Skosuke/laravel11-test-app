@@ -37,17 +37,17 @@
 .search-container {
   position: fixed;
   top: 70px; /* ヘッダーの下 */
-  left: 20px; /* 画面左端から少し離す */
+  left: 0px; /* 画面左端から少し離す */
   height: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
   background-color: #ffffff; /* 背景は白 */
   border-radius: 8px; /* 角を丸くする */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* モダンな影 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* モダンな影 */
   padding: 8px 12px; /* 内側の余白 */
   z-index: 1000; /* 他の要素より前面に表示 */
-  opacity: 0.5; /* 初期状態で半透明 */
+  opacity: 0.7; /* 初期状態で半透明 */
   transition: opacity 0.3s ease; /* 透明度の変化をスムーズに */
 }
 
