@@ -5,6 +5,8 @@ import CreateChatRoomButton from '@/Components/CreateChatRoomButton';
 import Header from '@/Components/Header';
 import { CurrentUser, Room } from '@/types/user';
 import DeleteConfirmationModal from '@/Components/DeleteConfirmationModal';
+import SearchIcon from '@/Components/SearchIcon';
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
 
 type RoomListProps = {
   rooms: Room[];
@@ -14,6 +16,7 @@ type RoomListProps = {
 const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRoomId, setselectedRoomId] = useState<number | null>(null);
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   const openModal = (roomId: number) => {
     console.log(`open modal roomid is ${roomId}`);
@@ -38,7 +41,20 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
   return (
     <div className="rooms-container">
       <Header currentUser={currentUser} />
-
+      <div
+        className={`search-container ${isSearchOpen ? 'open' : ''}`}
+        onClick={() => setSearchOpen(!isSearchOpen)}
+      >
+        <div className="search-logo">
+          <SearchIcon />
+        </div>
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Search rooms"
+          onClick={(e) => e.stopPropagation()}
+        />
+      </div>
       <div className="rooms-list">
         {rooms.length > 0 ? (
           rooms.map((room) => (

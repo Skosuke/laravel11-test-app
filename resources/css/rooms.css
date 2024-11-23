@@ -9,6 +9,84 @@
 .logout-link:hover {
   color: #de4242;
 }
+/* 
+.search-container {
+  border-radius: 5px;
+  position: fixed;
+  display: flex;
+  top: 11%;
+  left: 1%;
+  z-index: 2000;
+  width: 500px;
+  height: 40px;
+  background-color: blue;
+}
+
+.search-logo {
+  background-color: red;
+}
+
+.search-input {
+  border-radius: 5px;
+  border-color: #cccccc;
+  width: 400px;
+  height: 30px;
+} */
+
+/* search-container: 検索ボックス全体のスタイル */
+.search-container {
+  position: fixed;
+  top: 70px; /* ヘッダーの下 */
+  left: 20px; /* 画面左端から少し離す */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff; /* 背景は白 */
+  border-radius: 8px; /* 角を丸くする */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* モダンな影 */
+  padding: 8px 12px; /* 内側の余白 */
+  z-index: 1000; /* 他の要素より前面に表示 */
+  opacity: 0.5; /* 初期状態で半透明 */
+  transition: opacity 0.3s ease; /* 透明度の変化をスムーズに */
+}
+
+.search-container:hover {
+  opacity: 1; /* ホバー時に完全に表示 */
+}
+
+/* search-logo: 検索アイコン */
+.search-logo {
+  cursor: pointer;
+  font-size: 16px; /* アイコンサイズ */
+  color: #5a5a5a; /* モダンなダークグレー */
+  transition: color 0.3s ease;
+}
+
+.search-logo:hover {
+  color: #de4242; /* ホバー時にアクセントカラー */
+}
+
+/* search-input: 検索ボックスの入力フィールド */
+.search-input {
+  flex: 1; /* フレックスで幅を調整 */
+  border: none; /* 枠線を非表示 */
+  outline: none; /* フォーカス時の枠線を非表示 */
+  font-size: 14px;
+  padding: 4px 8px; /* 内側の余白 */
+  display: none; /* 初期状態では非表示 */
+  color: #333;
+}
+
+.search-input:focus {
+  border: 1px solid #de4242; /* フォーカス時のボーダ */
+  box-shadow: 0 0 4px rgba(222, 66, 66, 0.5); /* モダンな影を追加 */
+}
+
+.search-container.open .search-input {
+  display: block; /* 開いている状態では表示 */
+  width: 300px;
+}
 
 .rooms-container {
   margin: 0 auto;

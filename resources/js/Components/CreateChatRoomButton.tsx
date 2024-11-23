@@ -25,7 +25,9 @@ const CreateChatRoomButton: React.FC = () => {
         }}
         onClick={openModal}
       >
-        <span className="icon-flare-text">+</span>
+        <span className="icon-flare-text">
+          <span className="dli-plus"></span>
+        </span>
         <div className="icon-spark"></div>
       </button>
     </>

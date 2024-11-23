@@ -25,7 +25,7 @@
   width: 90%; /* デフォルトの幅は画面の90% */
   max-width: 500px; /* 最大幅を指定 */
   height: auto; /* 必要に応じて高さが調整 */
-  padding: 20px 10px 10px 10px;
+  padding: 25px 10px 10px 10px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -38,7 +38,7 @@
   top: 0px; /* モーダルの上端から10px */
   right: 0px; /* モーダルの右端から10px */
   width: 60px;
-  height: 20px;
+  height: 25px;
   border-radius: 0 8px 0 0;
   color: #646464;
   font-size: 14px;
@@ -48,7 +48,7 @@
 }
 
 .modal-close-button:hover {
-  background: #f2f2f2;
+  background: #f8f8f8;
 }
 
 .modal-create-button {
