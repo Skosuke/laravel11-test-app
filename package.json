@@ -14,7 +14,7 @@
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^4.2.0",
     "autoprefixer": "^10.4.12",
-    "axios": "^1.7.4",
+    "axios": "^1.7.8",
     "laravel-echo": "^1.16.1",
     "laravel-vite-plugin": "^1.0",
     "postcss": "^8.4.31",
@@ -33,6 +33,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@inertiajs/inertia-react": "^0.8.1",
     "baseui": "^0.0.0-next-18f01efe0",
+    "react-draggable": "^4.4.6",
     "react-router-dom": "^6.27.0",
     "styletron-engine-monolithic": "^1.0.0",
     "styletron-react": "^6.1.1"

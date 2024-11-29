@@ -72,23 +72,29 @@ class RoomController extends Controller
             $room = Room::findOrFail($id);
 
             // ログイン中のユーザーIDを取得
-            $userId = Auth::id(); // Authファサードを使用
+            $userId = Auth::id();
 
-            // 削除権限を確認（ログインユーザーが作成者であることを確認）
+            // 削除権限を確認
             if ($room->user_id !== $userId) {
-                return redirect()->route('rooms.index')->with('error', 'You are not authorized to delete this room.');
+                return response()->json([
+                    'error' => 'You are not authorized to delete this room.'
+                ], 403); // 403 Forbidden
             }
 
             // ルームを削除
             $room->delete();
 
-            // ルーム一覧へリダイレクト
-            return redirect()->route('rooms.index')->with('success', 'Room created successfully.');
+            // 削除成功のレスポンスを返す
+            return response()->json([
+                'message' => 'Room deleted successfully.',
+                'room_id' => $id
+            ], 200); // 200 OK
         } catch (\Exception $e) {
-            return back()->with('error', 'Failed to create room');
+            return response()->json([
+                'error' => 'Failed to delete the room.'
+            ], 500); // 500 Internal Server Error
         }
     }
-
     /**
      * setting room info
      *
@@ -102,4 +108,21 @@ class RoomController extends Controller
             throw $e;
         }
     }
+
+    /**
+     * search api
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('name'); // クエリを取得
+        $rooms = Room::with('user') // ユーザー情報も含める
+                    ->where('name', 'LIKE', '%' . $query . '%') // 部分一致検索
+                    ->get();
+
+        return response()->json(['rooms' => $rooms]); // JSON形式で返す
+    }
+
 }

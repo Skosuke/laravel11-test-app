@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
 import { Link, router } from '@inertiajs/react';
+import axios from 'axios';
 import '../../../css/rooms.css';
 import CreateChatRoomButton from '@/Components/CreateChatRoomButton';
 import Header from '@/Components/Header';
 import { CurrentUser, Room } from '@/types/user';
 import DeleteConfirmationModal from '@/Components/DeleteConfirmationModal';
 import SearchIcon from '@/Components/SearchIcon';
-import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
 
 type RoomListProps = {
   rooms: Room[];
@@ -16,7 +17,15 @@ type RoomListProps = {
 const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRoomId, setselectedRoomId] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartPosition, setDragStartPosition] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
   const [isSearchOpen, setSearchOpen] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredRooms, setFilteredRooms] = useState<Room[]>(rooms);
 
   const openModal = (roomId: number) => {
     console.log(`open modal roomid is ${roomId}`);
@@ -29,35 +38,96 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
     setselectedRoomId(null);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (selectedRoomId != null) {
-      console.log(`Room ${selectedRoomId} deleted`);
-      // DELETEリクエストを送信
-      router.delete(`/room/delete/${selectedRoomId}`);
-      closeModal();
+      try {
+        const response = await axios.delete(`/room/delete/${selectedRoomId}`);
+
+        console.log(
+          `Room ${selectedRoomId} deleted successfully`,
+          response.data
+        );
+
+        // 削除後のリスト更新
+        setFilteredRooms(
+          filteredRooms.filter((room) => room.id !== selectedRoomId)
+        );
+
+        closeModal();
+      } catch (error) {
+        console.error('Error deleting room:', error);
+      }
     }
   };
+
+  // 部屋リストの検索処理
+  useEffect(() => {
+    const fetchFilteredRooms = async () => {
+      if (searchQuery.trim() === '') {
+        setFilteredRooms(rooms); // クエリが空の場合は元のリストを表示
+        return;
+      }
+      try {
+        const response = await axios.get<{ rooms: Room[] }>(
+          '/api/rooms/search',
+          {
+            params: { name: searchQuery }, // クエリパラメータを指定
+          }
+        );
+        setFilteredRooms(response.data.rooms); // 検索結果をステートに反映
+      } catch (error) {
+        console.error('Error fetching filtered rooms:', error);
+      }
+    };
+
+    const debounceFetch = setTimeout(fetchFilteredRooms, 300); // デバウンス
+    return () => clearTimeout(debounceFetch); // 前回のタイマーをクリア
+  }, [searchQuery, rooms]); // 検索クエリや部屋リストが変化したら再実行
 
   return (
     <div className="rooms-container">
       <Header currentUser={currentUser} />
-      <div
-        className={`search-container ${isSearchOpen ? 'open' : ''}`}
-        onClick={() => setSearchOpen(!isSearchOpen)}
+      <Draggable
+        onStart={(e: DraggableEvent, data: DraggableData) => {
+          setIsDragging(false);
+          setDragStartPosition({ x: data.x, y: data.y });
+        }}
+        onDrag={(e: DraggableEvent, data: DraggableData) => {
+          const deltaX = Math.abs(data.x - dragStartPosition.x);
+          const deltaY = Math.abs(data.y - dragStartPosition.y);
+          if (deltaX > 5 || deltaY > 5) {
+            setIsDragging(true);
+          }
+        }}
+        onStop={(e: DraggableEvent, data: DraggableData) => {
+          setTimeout(() => setIsDragging(false), 100);
+        }}
       >
-        <div className="search-logo">
-          <SearchIcon />
+        <div
+          className={`search-container ${isSearchOpen ? 'open' : ''}`}
+          onClick={(data) => {
+            if (!isDragging) {
+              setSearchOpen(!isSearchOpen);
+              setDragStartPosition({ x: data.x, y: data.y });
+            }
+          }}
+        >
+          <div className="search-logo">
+            <SearchIcon />
+          </div>
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search rooms"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // 検索クエリ更新
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
-        <input
-          className="search-input"
-          type="text"
-          placeholder="Search rooms"
-          onClick={(e) => e.stopPropagation()}
-        />
-      </div>
+      </Draggable>
       <div className="rooms-list">
-        {rooms.length > 0 ? (
-          rooms.map((room) => (
+        {filteredRooms.length > 0 ? (
+          filteredRooms.map((room) => (
             <div key={room.id} className="room-item">
               <h2 className="room-name">
                 {room.name} (
