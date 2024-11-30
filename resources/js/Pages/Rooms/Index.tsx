@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
-import { Link, router } from '@inertiajs/react';
 import axios from 'axios';
 import '../../../css/rooms.css';
 import CreateChatRoomButton from '@/Components/CreateChatRoomButton';
 import Header from '@/Components/Header';
 import { CurrentUser, Room } from '@/types/user';
 import DeleteConfirmationModal from '@/Components/DeleteConfirmationModal';
-import SearchIcon from '@/Components/SearchIcon';
 import SearchBar from '@/Components/SearchBar';
+import RoomItem from '@/Components/RoomItem';
 
 type RoomListProps = {
   rooms: Room[];
@@ -18,11 +16,6 @@ type RoomListProps = {
 const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRoomId, setselectedRoomId] = useState<number | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStartPosition, setDragStartPosition] = useState<{
-    x: number;
-    y: number;
-  }>({ x: 0, y: 0 });
   const [isSearchOpen, setSearchOpen] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,35 +90,12 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
       <div className="rooms-list">
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room) => (
-            <div key={room.id} className="room-item">
-              <h2 className="room-name">
-                {room.name} (
-                {room.user
-                  ? `Created by: ${room.user.name}`
-                  : 'Creator information not available'}
-                )
-              </h2>
-              <div>
-                <Link
-                  href={`/room/${room.id}`}
-                  method="post"
-                  className="join-button"
-                  as="button"
-                >
-                  Join Room
-                </Link>
-                {room.user?.id === currentUser.id ? (
-                  <button
-                    onClick={() => openModal(room.id)}
-                    className="delete-button"
-                  >
-                    DELETE
-                  </button>
-                ) : (
-                  ''
-                )}
-              </div>
-            </div>
+            <RoomItem
+              key={room.id}
+              room={room}
+              currentUser={currentUser}
+              openModal={openModal}
+            />
           ))
         ) : (
           <p className="no-rooms-message">No rooms available.</p>
