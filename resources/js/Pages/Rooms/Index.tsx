@@ -8,6 +8,7 @@ import Header from '@/Components/Header';
 import { CurrentUser, Room } from '@/types/user';
 import DeleteConfirmationModal from '@/Components/DeleteConfirmationModal';
 import SearchIcon from '@/Components/SearchIcon';
+import SearchBar from '@/Components/SearchBar';
 
 type RoomListProps = {
   rooms: Room[];
@@ -87,44 +88,12 @@ const RoomList: React.FC<RoomListProps> = ({ rooms, currentUser }) => {
   return (
     <div className="rooms-container">
       <Header currentUser={currentUser} />
-      <Draggable
-        onStart={(e: DraggableEvent, data: DraggableData) => {
-          setIsDragging(false);
-          setDragStartPosition({ x: data.x, y: data.y });
-        }}
-        onDrag={(e: DraggableEvent, data: DraggableData) => {
-          const deltaX = Math.abs(data.x - dragStartPosition.x);
-          const deltaY = Math.abs(data.y - dragStartPosition.y);
-          if (deltaX > 5 || deltaY > 5) {
-            setIsDragging(true);
-          }
-        }}
-        onStop={(e: DraggableEvent, data: DraggableData) => {
-          setTimeout(() => setIsDragging(false), 100);
-        }}
-      >
-        <div
-          className={`search-container ${isSearchOpen ? 'open' : ''}`}
-          onClick={(data) => {
-            if (!isDragging) {
-              setSearchOpen(!isSearchOpen);
-              setDragStartPosition({ x: data.x, y: data.y });
-            }
-          }}
-        >
-          <div className="search-logo">
-            <SearchIcon />
-          </div>
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search rooms"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // 検索クエリ更新
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      </Draggable>
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isSearchOpen={isSearchOpen}
+        setSearchOpen={setSearchOpen}
+      />
       <div className="rooms-list">
         {filteredRooms.length > 0 ? (
           filteredRooms.map((room) => (
